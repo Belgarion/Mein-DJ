@@ -1,0 +1,4 @@
+#!/bin/bash
+ps uax | grep hdjmodd | awk '{print $2}' | xargs kill -USR1
+ps uax | grep hdjcpl | awk '{print $2}' | xargs kill -USR1
+/usr/local/bin/mein-dj-start

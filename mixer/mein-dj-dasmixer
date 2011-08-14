@@ -1,0 +1,5 @@
+#!/bin/bash
+ps aux |grep jkeys |awk '{print $2}' |xargs kill -9
+export SDL_VIDEODRIVER="dummy"
+cd /usr/local/mixer/
+./jkeys /usr/local/mixer/das_conf.conf sleep 365d

@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+import subprocess
+from xml.dom.minidom import *
+
+
+
+
+# get the config file
+if len(sys.argv) > 2:
+
+    conf = sys.argv[1]
+    
+    # read config from xml doc
+    f = open(conf, "r")
+    xml = f.read()
+    f.close()
+    document = parseString(xml)
+    
+    # Start joystick keys
+    from joystick import JKeys 
+    j = JKeys(document)
+    #j.debug = True
+    j.run()
+
+
+    #from lirc import LircKeys
+    #irc = LircKeys(document)
+    #irc.run()    
+
+    # start application
+    print "Starting application"
+    print sys.argv[2:]
+    sys.exit(subprocess.call(sys.argv[2:]))
+
+else:
+	print "usage: jkeys joystick.conf application [params]"
