@@ -8,6 +8,7 @@ mein-dj.o: mein-dj.cpp
 
 clean:
 	rm -f *.o mein-dj
+	rm -f mixer/mixer/*.pyc
 
 install: all
 	install -m 0755 mein-dj /usr/local/bin
@@ -17,3 +18,4 @@ install: all
 	install -m 0755 mixer/hercules-hdj_mod/add /usr/share/hercules-hdj_mod
 	install -d /usr/local/mixer
 	cp -ax mixer/mixer /usr/local/
+

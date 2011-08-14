@@ -2,37 +2,31 @@
 # -*- coding: utf-8 -*-
 import sys
 import subprocess
-from xml.dom.minidom import *
-
-
-
+import imp
+import time
 
 # get the config file
-if len(sys.argv) > 2:
+if len(sys.argv) > 1:
 
-    conf = sys.argv[1]
-    
-    # read config from xml doc
-    f = open(conf, "r")
-    xml = f.read()
-    f.close()
-    document = parseString(xml)
-    
-    # Start joystick keys
-    from joystick import JKeys 
-    j = JKeys(document)
-    #j.debug = True
-    j.run()
+	conf = sys.argv[1]
+	config = imp.load_source("config", conf)
+
+	# Start joystick keys
+	from joystick import JKeys
+	j = JKeys(config)
+	j.debug = True
+	j.run()
 
 
-    #from lirc import LircKeys
-    #irc = LircKeys(document)
-    #irc.run()    
-
-    # start application
-    print "Starting application"
-    print sys.argv[2:]
-    sys.exit(subprocess.call(sys.argv[2:]))
+	# start application
+	if len(sys.argv) > 2:
+		print "Starting application"
+		print sys.argv[2:]
+		sys.exit(subprocess.call(sys.argv[2:]))
+	else:
+		print "Not starting any application"
+		while True:
+			time.sleep(1000)
 
 else:
-	print "usage: jkeys joystick.conf application [params]"
+	print "usage: jkeys config.py [application [params]]"
